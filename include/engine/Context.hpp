@@ -28,10 +28,6 @@ public:
 
     static EventHandler& event_handler() { return _context->_event_handler; }
 
-    bool is_main_window_hovered;
-    vec2 mouse_pos_in_main_window;
-    vec2 framebuffer_resolution;
-
 private:
     Context();
     ~Context() = default;

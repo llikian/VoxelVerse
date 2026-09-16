@@ -89,83 +89,67 @@ Shader& AssetManager::get_relevant_shader_from_mesh(const Mesh& mesh) {
 
 ShaderName AssetManager::get_relevant_shader_name_from_mesh(const Mesh& mesh) {
     switch(mesh.get_primitive()) {
-        case MeshPrimitive::POINTS: return SHADER_POINT_MESH;
-        case MeshPrimitive::LINES: return mesh.has_attribute(ATTRIBUTE_COLOR) ? SHADER_LINE_MESH : SHADER_FLAT;
+        case MeshPrimitive::POINTS:    return SHADER_POINT_MESH;
+        case MeshPrimitive::LINES:     return mesh.has_attribute(ATTRIBUTE_COLOR) ? SHADER_LINE_MESH : SHADER_FLAT;
         case MeshPrimitive::TRIANGLES: return mesh.has_attribute(ATTRIBUTE_NORMAL) ? SHADER_BLINN_PHONG : SHADER_FLAT;
-        default: return SHADER_FLAT;
+        default:                       return SHADER_FLAT;
     }
 }
 
 AssetManager::AssetManager() {
     /* Shaders */
-    shaders[SHADER_POINT_MESH].create({
-                                          "shaders/point_mesh/point_mesh.vert",
-                                          "shaders/point_mesh/point_mesh.frag"
-                                      }, "point mesh");
+    shaders[SHADER_POINT_MESH].create({ "shaders/point_mesh/point_mesh.vert", "shaders/point_mesh/point_mesh.frag" },
+                                      "point mesh");
 
-    shaders[SHADER_LINE_MESH].create({
-                                         "shaders/line_mesh/line_mesh.vert",
-                                         "shaders/line_mesh/line_mesh.frag"
-                                     }, "line mesh");
+    shaders[SHADER_LINE_MESH].create({ "shaders/line_mesh/line_mesh.vert", "shaders/line_mesh/line_mesh.frag" },
+                                     "line mesh");
 
-    shaders[SHADER_BACKGROUND].create({
-                                          "shaders/vertex/position_only-no_mvp.vert",
-                                          "shaders/fragment/background.frag"
-                                      }, "background");
+    shaders[SHADER_BACKGROUND].create(
+        { "shaders/vertex/position_only-no_mvp.vert", "shaders/fragment/background.frag" },
+        "background");
 
-    shaders[SHADER_FLAT].create({
-                                    "shaders/vertex/position_only.vert",
-                                    "shaders/fragment/flat.frag"
-                                }, "flat");
+    shaders[SHADER_FLAT].create({ "shaders/vertex/position_only.vert", "shaders/fragment/flat.frag" }, "flat");
 
-    shaders[SHADER_LAMBERT].create({
-                                       "shaders/vertex/position_and_normal.vert",
-                                       "shaders/fragment/lambert.frag"
-                                   }, "lambert");
+    shaders[SHADER_LAMBERT].create({ "shaders/vertex/position_and_normal.vert", "shaders/fragment/lambert.frag" },
+                                   "lambert");
 
-    shaders[SHADER_BLINN_PHONG].create({
-                                           "shaders/vertex/default.vert",
-                                           "shaders/fragment/blinn_phong.frag"
-                                       }, "blinn-phong");
+    shaders[SHADER_BLINN_PHONG].create({ "shaders/vertex/default.vert", "shaders/fragment/blinn_phong.frag" },
+                                       "blinn-phong");
 
-    shaders[SHADER_METALLIC_ROUGHNESS].create({
-                                                  "shaders/vertex/tangent.vert",
-                                                  "shaders/metallic-roughness/get_directions_tangent.frag",
-                                                  "shaders/metallic-roughness/metallic_roughness.frag",
-                                              }, "metallic-roughness");
+    shaders[SHADER_METALLIC_ROUGHNESS].create(
+        {
+            "shaders/vertex/tangent.vert",
+            "shaders/metallic-roughness/get_directions_tangent.frag",
+            "shaders/metallic-roughness/metallic_roughness.frag",
+        },
+        "metallic-roughness");
 
-    shaders[SHADER_METALLIC_ROUGHNESS_NO_TANGENT].create({
-                                                             "shaders/vertex/default.vert",
-                                                             "shaders/metallic-roughness/get_directions_no_tangent.frag",
-                                                             "shaders/metallic-roughness/metallic_roughness.frag",
-                                                         }, "metallic-roughness no tangent");
+    shaders[SHADER_METALLIC_ROUGHNESS_NO_TANGENT].create(
+        {
+            "shaders/vertex/default.vert",
+            "shaders/metallic-roughness/get_directions_no_tangent.frag",
+            "shaders/metallic-roughness/metallic_roughness.frag",
+        },
+        "metallic-roughness no tangent");
 
-    shaders[SHADER_TERRAIN].create({
-                                       "shaders/terrain/terrain.vert",
-                                       "shaders/terrain/terrain.tesc",
-                                       "shaders/terrain/terrain.tese",
-                                       "shaders/terrain/terrain.frag"
-                                   }, "terrain");
+    shaders[SHADER_TERRAIN].create({ "shaders/terrain/terrain.vert",
+                                     "shaders/terrain/terrain.tesc",
+                                     "shaders/terrain/terrain.tese",
+                                     "shaders/terrain/terrain.frag" },
+                                   "terrain");
 
-    shaders[SHADER_POST_PROCESSING].create({
-                                               "shaders/vertex/position_only-no_mvp.vert",
-                                               "shaders/fragment/post_processing.frag"
-                                           }, "post processing");
+    shaders[SHADER_NORMALS].create({ "shaders/normals_mesh/normals_mesh.vert",
+                                     "shaders/normals_mesh/normals_mesh.geom",
+                                     "shaders/line_mesh/line_mesh.frag" },
+                                   "normals mesh");
 
-    shaders[SHADER_NORMALS].create({
-                                       "shaders/normals_mesh/normals_mesh.vert",
-                                       "shaders/normals_mesh/normals_mesh.geom",
-                                       "shaders/line_mesh/line_mesh.frag"
-                                   }, "normals mesh");
-
-    shaders[SHADER_WIREFRAME].create({
-                                       "shaders/vertex/position_only-no_mvp.vert",
+    shaders[SHADER_WIREFRAME].create({ "shaders/vertex/position_only-no_mvp.vert",
                                        "shaders/wireframe/wireframe.geom",
-                                       "shaders/line_mesh/line_mesh.frag"
-                                   }, "wireframe");
+                                       "shaders/line_mesh/line_mesh.frag" },
+                                     "wireframe");
 }
 
 AssetManager::~AssetManager() {
-    for(unsigned int i = 0 ; i < SHADER_COUNT ; ++i) { shaders[i].free(); }
+    for(unsigned int i = 0; i < SHADER_COUNT; ++i) { shaders[i].free(); }
     for(Texture& texture : textures | std::views::values) { texture.free(); }
 }

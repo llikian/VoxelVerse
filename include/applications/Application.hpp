@@ -6,9 +6,8 @@
 #pragma once
 
 #include "assets/Camera.hpp"
-#include "culling/Frustum.hpp"
 #include "engine/Framebuffer.hpp"
-#include "engine/SceneGraph.hpp"
+#include "mesh/Mesh.hpp"
 
 /**
  * @class Application
@@ -32,10 +31,13 @@ public:
     void run();
 
 private:
-    /**
-     * @brief Draws the background, the scene and handles post processing.
-     */
     void draw();
+    void draw_main_window();
+
+    /**
+     * @brief Draws the background.
+     */
+    void draw_background();
 
     /**
      * @brief Draws the imgui debug window.
@@ -44,13 +46,10 @@ private:
 
     Camera camera; ///< The camera.
 
-    SceneGraph scene_graph;  ///< Scene graph.
     Framebuffer framebuffer; ///< The framebuffer used to render.
-
-    Frustum frustum; ///< The frustum used for culling.
-
-    bool are_axes_drawn; ///< Whether the axes are drawn.
 
     vec3 sky_color_low;
     vec3 sky_color_high;
+
+    Mesh mesh_screen;
 };

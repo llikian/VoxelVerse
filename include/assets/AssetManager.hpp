@@ -22,7 +22,6 @@ enum ShaderName {
     SHADER_METALLIC_ROUGHNESS,
     SHADER_METALLIC_ROUGHNESS_NO_TANGENT,
     SHADER_TERRAIN,
-    SHADER_POST_PROCESSING,
     SHADER_NORMALS,
     SHADER_WIREFRAME,
 
@@ -56,10 +55,8 @@ public:
     }
 
     template <typename MeshFunc, typename... Args>
-    static void add_two_meshes(const std::string& first,
-                               const std::string& second,
-                               MeshFunc&& create_mesh,
-                               Args&&... args) {
+    static void
+    add_two_meshes(const std::string& first, const std::string& second, MeshFunc&& create_mesh, Args&&... args) {
         AssetManager& asset_manager = get();
         std::invoke(std::forward<MeshFunc>(create_mesh),
                     asset_manager.meshes.emplace(first, Mesh()).first->second,
