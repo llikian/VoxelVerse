@@ -9,6 +9,13 @@
 #include "engine/Framebuffer.hpp"
 #include "mesh/Mesh.hpp"
 
+using Block = std::uint16_t; // All 16 bits represent the block_id
+constexpr std::uint8_t BLOCK_BIT_COUNT = sizeof(Block) * 8;
+
+struct Chunk {
+    Block blocks[16][16][16];
+};
+
 /**
  * @class Application
  * @brief Core of the project. Assembles everything together and handles the main loop.
