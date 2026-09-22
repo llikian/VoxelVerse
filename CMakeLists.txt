@@ -1,6 +1,6 @@
 # Global Project Configuration
 cmake_minimum_required(VERSION 3.26)
-project(OpenGL-Engine)
+project(VoxelVerse)
 
 # Find Packages
 find_package(OpenGL REQUIRED)
@@ -27,6 +27,7 @@ set(SOURCES
         # Assets Module
         src/assets/AssetManager.cpp
         src/assets/Camera.cpp
+        src/assets/GLTF.cpp
         src/assets/Image.cpp
         src/assets/Shader.cpp
         src/assets/Texture.cpp
@@ -40,6 +41,8 @@ set(SOURCES
         src/engine/Context.cpp
         src/engine/EventHandler.cpp
         src/engine/Framebuffer.cpp
+        src/engine/Node.cpp
+        src/engine/SceneGraph.cpp
         src/engine/Window.cpp
         src/engine/callbacks.cpp
 

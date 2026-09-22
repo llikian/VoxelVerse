@@ -6,7 +6,6 @@
 #pragma once
 
 #include <iostream>
-#include <cstdint>
 #include "vector3.hpp"
 
 /**
@@ -19,7 +18,7 @@ struct vector4 {
     /**
      * @brief Constructs a vector4 with all components set to 0 (or default initialized in the case of a class).
      */
-    vector4() : x(), y(), z(), w() {}
+    vector4() : x(), y(), z(), w() { }
 
     /**
      * @brief Constructs a vector4 with a specific value for each component.
@@ -28,7 +27,7 @@ struct vector4 {
      * @param z The value of the z component.
      * @param w The value of the w component.
      */
-    vector4(Type x, Type y, Type z, Type w) : x(x), y(y), z(z), w(w) {}
+    vector4(Type x, Type y, Type z, Type w) : x(x), y(y), z(z), w(w) { }
 
     /**
      * @brief Constructs a vector4 with its first 2 components specified by a vector2 and its last 2
@@ -37,7 +36,7 @@ struct vector4 {
      * @param z The value of the z component.
      * @param w The value of the w component.
      */
-    vector4(const vector2<Type>& xy, float z, float w) : x(xy.x), y(xy.y), z(z), w(w) {}
+    vector4(const vector2<Type>& xy, float z, float w) : x(xy.x), y(xy.y), z(z), w(w) { }
 
     /**
      * @brief Constructs a vector4 with its first 2 components specified by a vector2 and its last 2
@@ -45,7 +44,7 @@ struct vector4 {
      * @param xy The value of the x and y components.
      * @param zw The value of the z and w components.
      */
-    vector4(const vector2<Type>& xy, const vector2<Type> zw) : x(xy.x), y(xy.y), z(zw.x), w(zw.y) {}
+    vector4(const vector2<Type>& xy, const vector2<Type> zw) : x(xy.x), y(xy.y), z(zw.x), w(zw.y) { }
 
     /**
      * @brief Constructs a vector4 with its first 3 components specified by a vector3 and its last
@@ -53,34 +52,34 @@ struct vector4 {
      * @param xyz The value of the x, y and z components
      * @param w The value of the w component.
      */
-    vector4(const vector3<Type>& xyz, float w) : x(xyz.x), y(xyz.y), z(xyz.z), w(w) {}
+    vector4(const vector3<Type>& xyz, float w) : x(xyz.x), y(xyz.y), z(xyz.z), w(w) { }
 
     /**
      * @brief Constructs a vector4 with the same value for each component.
      * @param value The value of each component.
      */
-    explicit vector4(Type value) : x(value), y(value), z(value), w(value) {}
+    explicit vector4(Type value) : x(value), y(value), z(value), w(value) { }
 
     /**
      * @brief Access an element of the vector4 by its index.
      * @param index The index of the element. 0 <= index < 4.
      * @return A reference to the element.
      */
-    float& operator[](std::uint8_t index) { return (&x)[index]; }
+    float& operator[](uint8_t index) { return (&x)[index]; }
 
     /**
      * @brief Access an element of the vector4 by its index.
      * @param index The index of the element. 0 <= index < 4.
      * @return A const reference to the element.
      */
-    const float& operator[](std::uint8_t index) const { return (&x)[index]; }
+    const float& operator[](uint8_t index) const { return (&x)[index]; }
 
     /**
      * @brief Adds another vector4's components to the current instance's components.
      * @param vec The vector4 to add.
      * @return A reference to this instance.
      */
-    vector4& operator+=(const vector4& vec) {
+    vector4& operator +=(const vector4& vec) {
         x += vec.x;
         y += vec.y;
         z += vec.z;
@@ -94,7 +93,7 @@ struct vector4 {
      * @param vec The vector4 to subtract by.
      * @return A reference to this instance.
      */
-    vector4& operator-=(const vector4& vec) {
+    vector4& operator -=(const vector4& vec) {
         x -= vec.x;
         y -= vec.y;
         z -= vec.z;
@@ -108,7 +107,7 @@ struct vector4 {
      * @param vec The vector4 to multiply by.
      * @return A reference to this instance.
      */
-    vector4& operator*=(const vector4& vec) {
+    vector4& operator *=(const vector4& vec) {
         x *= vec.x;
         y *= vec.y;
         z *= vec.z;
@@ -122,7 +121,7 @@ struct vector4 {
      * @param vec The vector4 to divide by.
      * @return A reference to this instance.
      */
-    vector4& operator/=(const vector4& vec) {
+    vector4& operator /=(const vector4& vec) {
         x /= vec.x;
         y /= vec.y;
         z /= vec.z;
@@ -136,7 +135,7 @@ struct vector4 {
      * @param value The value to add.
      * @return A reference to this instance.
      */
-    vector4& operator+=(Type value) {
+    vector4& operator +=(Type value) {
         x += value;
         y += value;
         z += value;
@@ -150,7 +149,7 @@ struct vector4 {
      * @param value The value to subtract by.
      * @return A reference to this instance.
      */
-    vector4& operator-=(Type value) {
+    vector4& operator -=(Type value) {
         x -= value;
         y -= value;
         z -= value;
@@ -164,7 +163,7 @@ struct vector4 {
      * @param value The value to multiply by.
      * @return A reference to this instance.
      */
-    vector4& operator*=(Type value) {
+    vector4& operator *=(Type value) {
         x *= value;
         y *= value;
         z *= value;
@@ -178,7 +177,7 @@ struct vector4 {
      * @param value The value to divide by.
      * @return A reference to this instance.
      */
-    vector4& operator/=(Type value) {
+    vector4& operator /=(Type value) {
         x /= value;
         y /= value;
         z /= value;
@@ -192,14 +191,18 @@ struct vector4 {
      * @param other The vector4 to compare with.
      * @return Whether the two vector4 are equal.
      */
-    bool operator==(const vector4& other) const { return x == other.x && y == other.y && z == other.z && w == other.w; }
+    bool operator ==(const vector4& other) const {
+        return x == other.x && y == other.y && z == other.z && w == other.w;
+    }
 
     /**
      * @brief Tests if this vector4 is different than an other one.
      * @param other The vector4 to compare with.
      * @return Whether the two vector4 are different.
      */
-    bool operator!=(const vector4& other) const { return x != other.x || y != other.y || z != other.z || w != other.w; }
+    bool operator !=(const vector4& other) const {
+        return x != other.x || y != other.y || z != other.z || w != other.w;
+    }
 
     Type x; ///< The x component of the vector4.
     Type y; ///< The y component of the vector4.
@@ -215,7 +218,7 @@ struct vector4 {
  * @return A reference to the output stream after writing the vector4.
  */
 template <typename Type>
-std::ostream& operator<<(std::ostream& stream, const vector4<Type>& vec) {
+std::ostream& operator <<(std::ostream& stream, const vector4<Type>& vec) {
     stream << "( " << vec.x << " ; " << vec.y << " ; " << vec.z << " ; " << vec.w << " )";
     return stream;
 }
@@ -228,7 +231,7 @@ std::ostream& operator<<(std::ostream& stream, const vector4<Type>& vec) {
  * @return A reference to the input stream after reading the values and assigning them to vector4.
  */
 template <typename Type>
-std::istream& operator>>(std::istream& stream, vector4<Type>& vec) {
+std::istream& operator >>(std::istream& stream, vector4<Type>& vec) {
     stream >> vec.x >> vec.y >> vec.z >> vec.w;
     return stream;
 }
@@ -239,8 +242,13 @@ std::istream& operator>>(std::istream& stream, vector4<Type>& vec) {
  *  @return The component-wise sum of the two vector4.
  */
 template <typename Type>
-vector4<Type> operator+(const vector4<Type>& left, const vector4<Type>& right) {
-    return vector4<Type>(left.x + right.x, left.y + right.y, left.z + right.z, left.w + right.w);
+vector4<Type> operator +(const vector4<Type>& left, const vector4<Type>& right) {
+    return vector4<Type>(
+        left.x + right.x,
+        left.y + right.y,
+        left.z + right.z,
+        left.w + right.w
+    );
 }
 
 /** @brief Subtracts a vector4's components by another's.
@@ -249,8 +257,13 @@ vector4<Type> operator+(const vector4<Type>& left, const vector4<Type>& right) {
  *  @return The component-wise subtraction of the first vector4 by the second.
  */
 template <typename Type>
-vector4<Type> operator-(const vector4<Type>& left, const vector4<Type>& right) {
-    return vector4<Type>(left.x - right.x, left.y - right.y, left.z - right.z, left.w - right.w);
+vector4<Type> operator -(const vector4<Type>& left, const vector4<Type>& right) {
+    return vector4<Type>(
+        left.x - right.x,
+        left.y - right.y,
+        left.z - right.z,
+        left.w - right.w
+    );
 }
 
 /** @brief Multiplies a vector4's components by another's.
@@ -259,8 +272,13 @@ vector4<Type> operator-(const vector4<Type>& left, const vector4<Type>& right) {
  *  @return The component-wise product of the two vector4.
  */
 template <typename Type>
-vector4<Type> operator*(const vector4<Type>& left, const vector4<Type>& right) {
-    return vector4<Type>(left.x * right.x, left.y * right.y, left.z * right.z, left.w * right.w);
+vector4<Type> operator *(const vector4<Type>& left, const vector4<Type>& right) {
+    return vector4<Type>(
+        left.x * right.x,
+        left.y * right.y,
+        left.z * right.z,
+        left.w * right.w
+    );
 }
 
 /** @brief Divides a vector4's components by another's.
@@ -269,8 +287,13 @@ vector4<Type> operator*(const vector4<Type>& left, const vector4<Type>& right) {
  *  @return The component-wise division of the first vector4 by the second.
  */
 template <typename Type>
-vector4<Type> operator/(const vector4<Type>& left, const vector4<Type>& right) {
-    return vector4<Type>(left.x / right.x, left.y / right.y, left.z / right.z, left.w / right.w);
+vector4<Type> operator /(const vector4<Type>& left, const vector4<Type>& right) {
+    return vector4<Type>(
+        left.x / right.x,
+        left.y / right.y,
+        left.z / right.z,
+        left.w / right.w
+    );
 }
 
 /** @brief Adds a value to each of a vector4's components.
@@ -279,8 +302,13 @@ vector4<Type> operator/(const vector4<Type>& left, const vector4<Type>& right) {
  *  @return The component-wise sum of a vector4 by a value.
  */
 template <typename Type>
-vector4<Type> operator+(const vector4<Type>& vec, Type value) {
-    return vector4<Type>(vec.x + value, vec.y + value, vec.z + value, vec.w + value);
+vector4<Type> operator +(const vector4<Type>& vec, Type value) {
+    return vector4<Type>(
+        vec.x + value,
+        vec.y + value,
+        vec.z + value,
+        vec.w + value
+    );
 }
 
 /** @brief Subtracts each of a vector4's components by a value.
@@ -289,8 +317,13 @@ vector4<Type> operator+(const vector4<Type>& vec, Type value) {
  *  @return The component-wise subtraction of a vector4 by a value.
  */
 template <typename Type>
-vector4<Type> operator-(const vector4<Type>& vec, Type value) {
-    return vector4<Type>(vec.x - value, vec.y - value, vec.z - value, vec.w - value);
+vector4<Type> operator -(const vector4<Type>& vec, Type value) {
+    return vector4<Type>(
+        vec.x - value,
+        vec.y - value,
+        vec.z - value,
+        vec.w - value
+    );
 }
 
 /** @brief Multiplies each of a vector4's components by a value.
@@ -299,8 +332,13 @@ vector4<Type> operator-(const vector4<Type>& vec, Type value) {
  *  @return The component-wise product of a vector4 by a value.
  */
 template <typename Type>
-vector4<Type> operator*(const vector4<Type>& vec, Type value) {
-    return vector4<Type>(vec.x * value, vec.y * value, vec.z * value, vec.w * value);
+vector4<Type> operator *(const vector4<Type>& vec, Type value) {
+    return vector4<Type>(
+        vec.x * value,
+        vec.y * value,
+        vec.z * value,
+        vec.w * value
+    );
 }
 
 /** @brief Multiplies each of a vector4's components by a value.
@@ -309,8 +347,13 @@ vector4<Type> operator*(const vector4<Type>& vec, Type value) {
  *  @return The component-wise product of a vector4 by a value.
  */
 template <typename Type>
-vector4<Type> operator*(Type value, const vector4<Type>& vec) {
-    return vector4<Type>(value * vec.x, value * vec.y, value * vec.z, value * vec.w);
+vector4<Type> operator *(Type value, const vector4<Type>& vec) {
+    return vector4<Type>(
+        value * vec.x,
+        value * vec.y,
+        value * vec.z,
+        value * vec.w
+    );
 }
 
 /** @brief Divides each of a vector4's components by a value.
@@ -319,8 +362,13 @@ vector4<Type> operator*(Type value, const vector4<Type>& vec) {
  *  @return The component-wise division of a vector4 by a value.
  */
 template <typename Type>
-vector4<Type> operator/(const vector4<Type>& vec, Type value) {
-    return vector4<Type>(vec.x / value, vec.y / value, vec.z / value, vec.w / value);
+vector4<Type> operator /(const vector4<Type>& vec, Type value) {
+    return vector4<Type>(
+        vec.x / value,
+        vec.y / value,
+        vec.z / value,
+        vec.w / value
+    );
 }
 
 /**
@@ -329,6 +377,6 @@ vector4<Type> operator/(const vector4<Type>& vec, Type value) {
  *  @return The component-wise product of a vector4 by -1.
  */
 template <typename Type>
-vector4<Type> operator-(const vector4<Type>& vec) {
+vector4<Type> operator -(const vector4<Type>& vec) {
     return vector4(-vec.x, -vec.y, -vec.z, -vec.w);
 }

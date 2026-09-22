@@ -6,7 +6,6 @@
 #pragma once
 
 #include <iostream>
-#include <cstdint>
 #include "vector2.hpp"
 
 /**
@@ -20,7 +19,7 @@ struct vector3 {
      * @brief Constructs a vector3 with all components set to 0 (or default initialized in the case
      * of a class).
      */
-    vector3() : x(), y(), z() {}
+    vector3() : x(), y(), z() { }
 
     /**
      * @brief Constructs a vector3 with a specific value for each component.
@@ -28,7 +27,7 @@ struct vector3 {
      * @param y The value of the y component.
      * @param z The value of the z component.
      */
-    vector3(Type x, Type y, Type z) : x(x), y(y), z(z) {}
+    vector3(Type x, Type y, Type z) : x(x), y(y), z(z) { }
 
     /**
      * @brief Constructs a vector3 with its first 2 components specified by a vector2 and its last
@@ -36,40 +35,40 @@ struct vector3 {
      * @param xy The value of the x and y components
      * @param z The value of the z component.
      */
-    vector3(const vector2<Type>& xy, float z) : x(xy.x), y(xy.y), z(z) {}
+    vector3(const vector2<Type>& xy, float z) : x(xy.x), y(xy.y), z(z) { }
 
     /**
      * @brief Constructs a vector3 with its components specified by a vector4's first 3 components.
      * @param xyzw The value of the xyz (and the ignored w) components.
      */
-    explicit vector3(const vector4<Type>& xyzw) : x(xyzw.x), y(xyzw.y), z(xyzw.z) {}
+    explicit vector3(const vector4<Type>& xyzw) : x(xyzw.x), y(xyzw.y), z(xyzw.z) { }
 
     /**
      * @brief Constructs a vector3 with the same value for each component.
      * @param value The value of each component.
      */
-    explicit vector3(Type value) : x(value), y(value), z(value) {}
+    explicit vector3(Type value) : x(value), y(value), z(value) { }
 
     /**
      * @brief Access an element of the vector3 by its index.
      * @param index The index of the element. 0 <= index < 3.
      * @return A reference to the element.
      */
-    float& operator[](std::uint8_t index) { return (&x)[index]; }
+    float& operator[](uint8_t index) { return (&x)[index]; }
 
     /**
      * @brief Access an element of the vector3 by its index.
      * @param index The index of the element. 0 <= index < 3.
      * @return A const reference to the element.
      */
-    const float& operator[](std::uint8_t index) const { return (&x)[index]; }
+    const float& operator[](uint8_t index) const { return (&x)[index]; }
 
     /**
      * @brief Adds another vector3's components to the current instance's components.
      * @param vec The vector3 to add.
      * @return A reference to this instance.
      */
-    vector3& operator+=(const vector3& vec) {
+    vector3& operator +=(const vector3& vec) {
         x += vec.x;
         y += vec.y;
         z += vec.z;
@@ -82,7 +81,7 @@ struct vector3 {
      * @param vec The vector3 to subtract by.
      * @return A reference to this instance.
      */
-    vector3& operator-=(const vector3& vec) {
+    vector3& operator -=(const vector3& vec) {
         x -= vec.x;
         y -= vec.y;
         z -= vec.z;
@@ -95,7 +94,7 @@ struct vector3 {
      * @param vec The vector3 to multiply by.
      * @return A reference to this instance.
      */
-    vector3& operator*=(const vector3& vec) {
+    vector3& operator *=(const vector3& vec) {
         x *= vec.x;
         y *= vec.y;
         z *= vec.z;
@@ -108,7 +107,7 @@ struct vector3 {
      * @param vec The vector3 to divide by.
      * @return A reference to this instance.
      */
-    vector3& operator/=(const vector3& vec) {
+    vector3& operator /=(const vector3& vec) {
         x /= vec.x;
         y /= vec.y;
         z /= vec.z;
@@ -121,7 +120,7 @@ struct vector3 {
      * @param value The value to add.
      * @return A reference to this instance.
      */
-    vector3& operator+=(Type value) {
+    vector3& operator +=(Type value) {
         x += value;
         y += value;
         z += value;
@@ -134,7 +133,7 @@ struct vector3 {
      * @param value The value to subtract by.
      * @return A reference to this instance.
      */
-    vector3& operator-=(Type value) {
+    vector3& operator -=(Type value) {
         x -= value;
         y -= value;
         z -= value;
@@ -147,7 +146,7 @@ struct vector3 {
      * @param value The value to multiply by.
      * @return A reference to this instance.
      */
-    vector3& operator*=(Type value) {
+    vector3& operator *=(Type value) {
         x *= value;
         y *= value;
         z *= value;
@@ -160,7 +159,7 @@ struct vector3 {
      * @param value The value to divide by.
      * @return A reference to this instance.
      */
-    vector3& operator/=(Type value) {
+    vector3& operator /=(Type value) {
         x /= value;
         y /= value;
         z /= value;
@@ -173,14 +172,18 @@ struct vector3 {
      * @param other The vector3 to compare with.
      * @return Whether the two vector3 are equal.
      */
-    bool operator==(const vector3& other) const { return x == other.x && y == other.y && z == other.z; }
+    bool operator ==(const vector3& other) const {
+        return x == other.x && y == other.y && z == other.z;
+    }
 
     /**
      * @brief Tests if this vector3 is different than an other one.
      * @param other The vector3 to compare with.
      * @return Whether the two vector3 are different.
      */
-    bool operator!=(const vector3& other) const { return x != other.x || y != other.y || z != other.z; }
+    bool operator !=(const vector3& other) const {
+        return x != other.x || y != other.y || z != other.z;
+    }
 
     Type x; ///< The x component of the vector3.
     Type y; ///< The y component of the vector3.
@@ -195,7 +198,7 @@ struct vector3 {
  * @return A reference to the output stream after writing the vector3.
  */
 template <typename Type>
-std::ostream& operator<<(std::ostream& stream, const vector3<Type>& vec) {
+std::ostream& operator <<(std::ostream& stream, const vector3<Type>& vec) {
     stream << "( " << vec.x << " ; " << vec.y << " ; " << vec.z << " )";
     return stream;
 }
@@ -208,7 +211,7 @@ std::ostream& operator<<(std::ostream& stream, const vector3<Type>& vec) {
  * @return A reference to the input stream after reading the values and assigning them to vector3.
  */
 template <typename Type>
-std::istream& operator>>(std::istream& stream, vector3<Type>& vec) {
+std::istream& operator >>(std::istream& stream, vector3<Type>& vec) {
     stream >> vec.x >> vec.y >> vec.z;
     return stream;
 }
@@ -219,8 +222,12 @@ std::istream& operator>>(std::istream& stream, vector3<Type>& vec) {
  *  @return The component-wise sum of the two vector3.
  */
 template <typename Type>
-vector3<Type> operator+(const vector3<Type>& left, const vector3<Type>& right) {
-    return vector3<Type>(left.x + right.x, left.y + right.y, left.z + right.z);
+vector3<Type> operator +(const vector3<Type>& left, const vector3<Type>& right) {
+    return vector3<Type>(
+        left.x + right.x,
+        left.y + right.y,
+        left.z + right.z
+    );
 }
 
 /** @brief Subtracts a vector3's components by another's.
@@ -229,8 +236,12 @@ vector3<Type> operator+(const vector3<Type>& left, const vector3<Type>& right) {
  *  @return The component-wise subtraction of the first vector3 by the second.
  */
 template <typename Type>
-vector3<Type> operator-(const vector3<Type>& left, const vector3<Type>& right) {
-    return vector3<Type>(left.x - right.x, left.y - right.y, left.z - right.z);
+vector3<Type> operator -(const vector3<Type>& left, const vector3<Type>& right) {
+    return vector3<Type>(
+        left.x - right.x,
+        left.y - right.y,
+        left.z - right.z
+    );
 }
 
 /** @brief Multiplies a vector3's components by another's.
@@ -239,8 +250,12 @@ vector3<Type> operator-(const vector3<Type>& left, const vector3<Type>& right) {
  *  @return The component-wise product of the two vector3.
  */
 template <typename Type>
-vector3<Type> operator*(const vector3<Type>& left, const vector3<Type>& right) {
-    return vector3<Type>(left.x * right.x, left.y * right.y, left.z * right.z);
+vector3<Type> operator *(const vector3<Type>& left, const vector3<Type>& right) {
+    return vector3<Type>(
+        left.x * right.x,
+        left.y * right.y,
+        left.z * right.z
+    );
 }
 
 /** @brief Divides a vector3's components by another's.
@@ -249,8 +264,12 @@ vector3<Type> operator*(const vector3<Type>& left, const vector3<Type>& right) {
  *  @return The component-wise division of the first vector3 by the second.
  */
 template <typename Type>
-vector3<Type> operator/(const vector3<Type>& left, const vector3<Type>& right) {
-    return vector3<Type>(left.x / right.x, left.y / right.y, left.z / right.z);
+vector3<Type> operator /(const vector3<Type>& left, const vector3<Type>& right) {
+    return vector3<Type>(
+        left.x / right.x,
+        left.y / right.y,
+        left.z / right.z
+    );
 }
 
 /** @brief Adds a value to each of a vector3's components.
@@ -259,8 +278,12 @@ vector3<Type> operator/(const vector3<Type>& left, const vector3<Type>& right) {
  *  @return The component-wise sum of a vector3 by a value.
  */
 template <typename Type>
-vector3<Type> operator+(const vector3<Type>& vec, Type value) {
-    return vector3<Type>(vec.x + value, vec.y + value, vec.z + value);
+vector3<Type> operator +(const vector3<Type>& vec, Type value) {
+    return vector3<Type>(
+        vec.x + value,
+        vec.y + value,
+        vec.z + value
+    );
 }
 
 /** @brief Subtracts each of a vector3's components by a value.
@@ -269,8 +292,12 @@ vector3<Type> operator+(const vector3<Type>& vec, Type value) {
  *  @return The component-wise subtraction of a vector3 by a value.
  */
 template <typename Type>
-vector3<Type> operator-(const vector3<Type>& vec, Type value) {
-    return vector3<Type>(vec.x - value, vec.y - value, vec.z - value);
+vector3<Type> operator -(const vector3<Type>& vec, Type value) {
+    return vector3<Type>(
+        vec.x - value,
+        vec.y - value,
+        vec.z - value
+    );
 }
 
 /** @brief Multiplies each of a vector3's components by a value.
@@ -279,8 +306,12 @@ vector3<Type> operator-(const vector3<Type>& vec, Type value) {
  *  @return The component-wise product of a vector3 by a value.
  */
 template <typename Type>
-vector3<Type> operator*(const vector3<Type>& vec, Type value) {
-    return vector3<Type>(vec.x * value, vec.y * value, vec.z * value);
+vector3<Type> operator *(const vector3<Type>& vec, Type value) {
+    return vector3<Type>(
+        vec.x * value,
+        vec.y * value,
+        vec.z * value
+    );
 }
 
 /** @brief Multiplies each of a vector3's components by a value.
@@ -289,8 +320,12 @@ vector3<Type> operator*(const vector3<Type>& vec, Type value) {
  *  @return The component-wise product of a vector3 by a value.
  */
 template <typename Type>
-vector3<Type> operator*(Type value, const vector3<Type>& vec) {
-    return vector3<Type>(value * vec.x, value * vec.y, value * vec.z);
+vector3<Type> operator *(Type value, const vector3<Type>& vec) {
+    return vector3<Type>(
+        value * vec.x,
+        value * vec.y,
+        value * vec.z
+    );
 }
 
 /** @brief Divides each of a vector3's components by a value.
@@ -299,8 +334,12 @@ vector3<Type> operator*(Type value, const vector3<Type>& vec) {
  *  @return The component-wise division of a vector3 by a value.
  */
 template <typename Type>
-vector3<Type> operator/(const vector3<Type>& vec, Type value) {
-    return vector3<Type>(vec.x / value, vec.y / value, vec.z / value);
+vector3<Type> operator /(const vector3<Type>& vec, Type value) {
+    return vector3<Type>(
+        vec.x / value,
+        vec.y / value,
+        vec.z / value
+    );
 }
 
 /**
@@ -309,6 +348,6 @@ vector3<Type> operator/(const vector3<Type>& vec, Type value) {
  *  @return The component-wise product of a vector3 by -1.
  */
 template <typename Type>
-vector3<Type> operator-(const vector3<Type>& vec) {
+vector3<Type> operator -(const vector3<Type>& vec) {
     return vector3(-vec.x, -vec.y, -vec.z);
 }

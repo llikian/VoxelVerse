@@ -6,15 +6,9 @@
 #pragma once
 
 #include "assets/Camera.hpp"
+#include "culling/Frustum.hpp"
 #include "engine/Framebuffer.hpp"
-#include "mesh/Mesh.hpp"
-
-using Block = std::uint16_t; // All 16 bits represent the block_id
-constexpr std::uint8_t BLOCK_BIT_COUNT = sizeof(Block) * 8;
-
-struct Chunk {
-    Block blocks[16][16][16];
-};
+#include "engine/SceneGraph.hpp"
 
 /**
  * @class Application
@@ -38,13 +32,10 @@ public:
     void run();
 
 private:
-    void draw();
-    void draw_main_window();
-
     /**
-     * @brief Draws the background.
+     * @brief Draws the background, the scene and handles post processing.
      */
-    void draw_background();
+    void draw();
 
     /**
      * @brief Draws the imgui debug window.
@@ -53,10 +44,13 @@ private:
 
     Camera camera; ///< The camera.
 
+    SceneGraph scene_graph;  ///< Scene graph.
     Framebuffer framebuffer; ///< The framebuffer used to render.
+
+    Frustum frustum; ///< The frustum used for culling.
+
+    bool are_axes_drawn; ///< Whether the axes are drawn.
 
     vec3 sky_color_low;
     vec3 sky_color_high;
-
-    Mesh mesh_screen;
 };
